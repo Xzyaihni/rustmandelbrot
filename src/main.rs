@@ -64,11 +64,7 @@ impl Config
                 "--inside" => inside_color = parse_color(args.next())?,
                 "--second" => second_color = parse_color(args.next())?,
                 "-o" => filename = args.next().ok_or("no filename")?,
-                _ =>
-                {
-                    eprintln!("unrecongnized argument: {arg}");
-                    help_message();
-                }
+                _ => return Err(format!("unrecongnized argument: {arg}"))
             }
         }
 
@@ -101,7 +97,7 @@ fn main()
     let config = Config::parse(env::args()).unwrap_or_else(|err|
     {
         eprintln!("cant parse args: {err}");
-        process::exit(1);
+        help_message();
     });
 
     let mandelbrot = mandelbrot(&config);
