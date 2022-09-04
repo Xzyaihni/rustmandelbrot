@@ -205,7 +205,7 @@ fn parse_color(arg: Option<String>) -> Result<[u8; 3], String>
             return Err("not enough color values".to_string());
         }
 
-        out[index] = color.trim().parse().map_err(|err| format!("{err}"))?;
+        out[index] = color.trim().parse().map_err(|err| format!("cant parse {color}: {err}"))?;
     }
 
     Ok(out)
